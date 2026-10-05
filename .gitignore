@@ -1,0 +1,4 @@
+hits.json
+node_modules/
+*.db
+.env
