@@ -1,0 +1,39 @@
+{
+  "name": "login-ui-lab",
+  "version": "1.1.0",
+  "description": "Pixel-accurate social login UI + zero-dependency Node server. Windows, macOS, Linux, Termux, iSH.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "lab": "node server.js"
+  },
+  "keywords": [
+    "login-ui",
+    "instagram-login-clone",
+    "pixel-perfect",
+    "floating-labels",
+    "termux",
+    "ish",
+    "cloudflared",
+    "ngrok",
+    "zero-dependency",
+    "frontend-practice",
+    "social-login",
+    "2fa-ui",
+    "node-http",
+    "cross-platform"
+  ],
+  "author": "zenzemie",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zenzemie/login-ui-lab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zenzemie/login-ui-lab/issues"
+  },
+  "homepage": "https://github.com/zenzemie/login-ui-lab#readme"
+}
